@@ -44,26 +44,20 @@ const StyledProfileImage = styled.img`
     }
 `;
 
+const StyledExperiencePreview = styled.section`
+    margin-top: 5vh;
 
-const responsive = {
-    superLargeDesktop: {
-        // the naming can be any, depends on you.
-        breakpoint: { max: 4000, min: 3000 },
-        items: 5
-    },
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 3
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1
-    }
-};
+    display: flex;
+    /* align top of images */
+    align-items: flex-start;
+    /* add small margin between images */
+    gap: 10%;
+    /* center container horizontally */
+    justify-content: center;
+`
+
+
+
 
 const Home = () => {
     return (
@@ -72,18 +66,15 @@ const Home = () => {
                 <StyledWelcomeTextContainer>
                     <StyledHi>Hello!</StyledHi>
                     <StyledTagline>I develop Software</StyledTagline>
-                    <p style={{ marginTop: '5vh' }}>I'm Daniel, a Computer Science graduate from the University of Southampton, about to return as a Software Engineer at Bloomberg!</p>
+                    <p style={{ marginTop: '5vh' }}><strong>I'm Daniel</strong>, a Computer Science graduate from the University of Southampton, about to return as a Software Engineer at Bloomberg!</p>
                 </StyledWelcomeTextContainer>
                 <StyledProfileImage src={`${process.env.PUBLIC_URL}/image.jpg`} alt="Daniel's profile" />
             </StyledWelcomeContainer>
-            <Carousel responsive={responsive} infinite>
-                <div>Item 1</div>
-                <div>Item 2</div>
-                <div>Item 3</div>
-                <div>Item 4</div>
-            </Carousel>
+            <StyledExperiencePreview>
+                <img src={`${process.env.PUBLIC_URL}/southampton-modified.png`} alt="University of Southampton" style={{ width: '150px', height: 'auto' }} />
+                <img src={`${process.env.PUBLIC_URL}/bloomberg-modified.png`} alt="Bloomberg Engineering" style={{ width: '150px', height: 'auto' }} />
+            </StyledExperiencePreview>
         </StyledSection>
-
     );
 }
 

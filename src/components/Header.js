@@ -4,6 +4,9 @@ import "../index.css";
 
 
 const StyledHeader = Styled.header`
+    padding-left: 1%;
+    padding-right: 1%;
+
     /* grid element settings */
     grid-area: header;
     background-color: #022b3a;
@@ -22,7 +25,7 @@ const StyledNav = Styled.nav`
 `;
 
 const StyledH1 = Styled.h1`
-    padding-left: 1%;
+    
     background-image: linear-gradient(120deg, #07beb8 0%, #c4fff9 100%);
     background-clip: text;
     color: transparent;
