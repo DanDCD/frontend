@@ -7,7 +7,7 @@ const StyledFooter = Styled.footer`
     /* grid element settings */
     grid-area: footer;
     background-color: #022b3a;
-    padding: var(--header-footer-spacing);
+    
 
     /* flex container settings */
     display: flex;

@@ -7,7 +7,7 @@ const StyledHeader = Styled.header`
     /* grid element settings */
     grid-area: header;
     background-color: #022b3a;
-    padding: var(--header-footer-spacing);
+    
 
     /* flex container settings */
     display: flex;

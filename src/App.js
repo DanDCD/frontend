@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Main from './components/Main';
 
 const StyledApp = styled.div`
   background-color: mintcream;
@@ -29,9 +30,7 @@ function App() {
   return (
     <StyledApp>
       <Header section={section} setSection={setSection} />
-      <main>
-        <h1>Home</h1>
-      </main>
+      <Main section={section} />
       <Footer />
     </StyledApp>
   );
