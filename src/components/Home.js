@@ -67,10 +67,14 @@ const Home = () => {
                 </StyledWelcomeTextContainer>
                 <StyledProfileImage src={`${process.env.PUBLIC_URL}/image.jpg`} alt="Daniel's profile" />
             </StyledWelcomeContainer>
-            <StyledTaglineSmall>Checkout my highlights:</StyledTaglineSmall>
+            
+            <StyledTaglineSmall> 
+                check out my highlights
+                <p style={{ display: 'inline', fontSize: 'calc(1vw + 1.5rem)', position: 'relative', top: '0.2em' }}>↴</p> 
+
+            </StyledTaglineSmall>
             <Carousel images={experience_preview_images} captions={captions}/>
         </StyledSection>
-
     );
 }
 
