@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { StyledSection } from '../StyledSection';
+import { StyledSection, StyledAsideLeft } from '../StyledSection';
 import Carousel from './Carousel';
 import "../index.css";
 
@@ -52,12 +52,15 @@ const StyledProfileImage = styled.img`
 `;
 
 
+
+
 const Home = () => {
 
 
     const experience_preview_images = [`${process.env.PUBLIC_URL}/bloomberg.jpg`, `${process.env.PUBLIC_URL}/southampton.png`];
     const captions = ["SWE Internship at Bloomberg (2023)", "University of Southampton (2021-2024)"];
     return (
+        <React.Fragment>
         <StyledSection style={{ marginTop: '3vh' }}>
             <StyledWelcomeContainer>
                 <StyledWelcomeTextContainer>
@@ -71,10 +74,17 @@ const Home = () => {
             <StyledTaglineSmall> 
                 check out my highlights
                 <p style={{ display: 'inline', fontSize: 'calc(1vw + 1.5rem)', position: 'relative', top: '0.2em' }}>↴</p> 
-
             </StyledTaglineSmall>
             <Carousel images={experience_preview_images} captions={captions}/>
         </StyledSection>
+        <StyledAsideLeft style={{marginTop:'60vh', marginLeft:'10%', marginRight:'10%', marginBottom:'10%', fontSize:'calc(1vw + 0.5rem)', border:'dashed', borderRadius:'25px', color:'#07beb8'}}>
+            <h2 style={{marginTop:'2vh'}}>Current Favourites</h2>
+            <ul style={{listStyleType:'none', padding:'0'}}>
+                <li><h3>📖</h3><a href='https://www.gutenberg.org/ebooks/1260' style={{color:'#07beb8'}}>Jane Eyre: An Autobiography by Charlotte Brontë</a></li>
+                <li><h3>🎵</h3><iframe style={{borderRadius:"12px"}} src="https://open.spotify.com/embed/album/5tXJchExPrWfcj1JwoDeZy?utm_source=generator" width="100%" height="150" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></li>
+            </ul>
+        </StyledAsideLeft>
+        </React.Fragment>
     );
 }
 

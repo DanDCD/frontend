@@ -1,5 +1,29 @@
 import Styled from 'styled-components';
 
+
+const StyledAsideLeft = Styled.section`
+    /* grid element settings */
+    /* start row / start column / end row / end column */
+    grid-area: 1 / 1 / 1 / 2;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    @media (max-width: 768px) {
+        /* dont display on small screens */
+        display: none;
+    }
+    /* lower opacity and make less prominent */
+    opacity: 0.5;
+    /* increase opacity on hover */
+    &:hover {
+        /* transition effect */
+        opacity: 1;
+        font-weight: bold;
+        transition: opacity 0.5s, font-weight 0.5s;
+    }
+   
+`;
+
+
 const StyledSection = Styled.section`
     /* grid element settings */
     /* start row / start column / end row / end column */
@@ -14,4 +38,4 @@ const StyledSectionFull = Styled.section`
     padding: 1rem;
 `;
 
-export { StyledSection, StyledSectionFull };
+export { StyledAsideLeft, StyledSection, StyledSectionFull };
