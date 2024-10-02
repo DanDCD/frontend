@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StyledSection } from '../StyledSection';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import Carousel from './Carousel';
 import "../index.css";
 
 const StyledHi = styled.h1`
@@ -17,6 +16,14 @@ const StyledTagline = styled.h2`
     margin: 0;
     whitespace: nowrap;
     font-size: calc(1vw + 2rem);
+`;
+
+const StyledTaglineSmall = styled.h2`
+    padding-top: 5vh;
+    color:  #07beb8;
+    margin: 0;
+    whitespace: nowrap;
+    font-size: calc(1vw + 1rem);
 `;
 
 const StyledWelcomeContainer = styled.div`
@@ -44,22 +51,12 @@ const StyledProfileImage = styled.img`
     }
 `;
 
-const StyledExperiencePreview = styled.section`
-    margin-top: 5vh;
-
-    display: flex;
-    /* align top of images */
-    align-items: flex-start;
-    /* add small margin between images */
-    gap: 10%;
-    /* center container horizontally */
-    justify-content: center;
-`
-
-
-
 
 const Home = () => {
+
+
+    const experience_preview_images = [`${process.env.PUBLIC_URL}/bloomberg.jpg`, `${process.env.PUBLIC_URL}/southampton.png`];
+    const captions = ["SWE Internship at Bloomberg (2023)", "University of Southampton (2021-2024)"];
     return (
         <StyledSection style={{ marginTop: '3vh' }}>
             <StyledWelcomeContainer>
@@ -70,11 +67,10 @@ const Home = () => {
                 </StyledWelcomeTextContainer>
                 <StyledProfileImage src={`${process.env.PUBLIC_URL}/image.jpg`} alt="Daniel's profile" />
             </StyledWelcomeContainer>
-            <StyledExperiencePreview>
-                <img src={`${process.env.PUBLIC_URL}/southampton-modified.png`} alt="University of Southampton" style={{ width: '150px', height: 'auto' }} />
-                <img src={`${process.env.PUBLIC_URL}/bloomberg-modified.png`} alt="Bloomberg Engineering" style={{ width: '150px', height: 'auto' }} />
-            </StyledExperiencePreview>
+            <StyledTaglineSmall>Checkout my highlights:</StyledTaglineSmall>
+            <Carousel images={experience_preview_images} captions={captions}/>
         </StyledSection>
+
     );
 }
 
