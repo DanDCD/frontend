@@ -1,17 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+const CurrentProjectsStyled = styled.section`
+  font-size: calc(1vw + 0.5rem);
+  border: dashed;
+  border-radius: 25px;
+  color: #07beb8;
+  /* lower opacity and make less prominent */
+    opacity: 0.5;
+    transition: opacity 0.5s ease-in-out, font-weight 0.5s ease-in-out;
+    /* increase opacity on hover */
+    &:hover {
+        /* transition effect */
+        opacity: 1;
+        font-weight: bold;
+        transition: opacity 0.5s ease-in-out, font-weight 0.5s ease-in-out;
+    }
+  `;
+
 const ProjectsContainerStyled = styled.aside`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 20px;
-  height: 8rem; /* Set to a value larger than the biggest emoji size */
+  gap: 2vw;
+  height: 8vw; /* Set to a value larger than the biggest emoji size */
 `;
 
 const EmojiLinkStyled = styled.a`
   position: relative;
-  font-size: ${({ isHovered }) => (isHovered ? '5rem' : '2rem')};
+  font-size: ${({ isHovered }) => (isHovered ? '5vw' : '2vw')};
   transition: font-size 0.3s ease-in-out;
   cursor: pointer;
   text-decoration: none; /* Remove default link styling */
@@ -68,8 +86,8 @@ const CurrentFavourites = () => {
   };
 
   return (
-    <section>
-      <h2>Current Side-Projects:</h2>
+    <CurrentProjectsStyled>
+      <h2 style={{ fontSize: '1vw' }}>Current Side-Projects:</h2>
       <ProjectsContainerStyled>
         <EmojiLinkStyled
           href={projects.koala.link}
@@ -79,7 +97,7 @@ const CurrentFavourites = () => {
           onMouseEnter={() => handleMouseEnter('koala')}
         >
           🐨
-          <Tooltip className="Tooltip">Click to learn more!</Tooltip>
+          <Tooltip className="Tooltip">Click to open repo!</Tooltip>
         </EmojiLinkStyled>
         <EmojiLinkStyled
           href={projects.book.link}
@@ -89,7 +107,7 @@ const CurrentFavourites = () => {
           onMouseEnter={() => handleMouseEnter('book')}
         >
           📖
-          <Tooltip className="Tooltip">Click to learn more!</Tooltip>
+          <Tooltip className="Tooltip">Click to open repo!</Tooltip>
         </EmojiLinkStyled>
         <EmojiLinkStyled
           href={projects.web.link}
@@ -103,7 +121,7 @@ const CurrentFavourites = () => {
         </EmojiLinkStyled>
       </ProjectsContainerStyled>
       <PreviewText>{projects[hoveredProject].text}</PreviewText>
-    </section>
+    </CurrentProjectsStyled>
   );
 };
 

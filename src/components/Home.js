@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { StyledSection, StyledAsideRight } from '../StyledSection';
 import Carousel from './Carousel';
@@ -56,31 +56,42 @@ const StyledProfileImage = styled.img`
 
 
 const Home = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    // handle window resize event for tracking isMobile state
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
 
     const experience_preview_images = [`${process.env.PUBLIC_URL}/bloomberg.jpg`, `${process.env.PUBLIC_URL}/southampton.png`, `${process.env.PUBLIC_URL}/bloomberg2.jpg`];
     const captions = ["SWE Internship at Bloomberg (2023)", "University of Southampton (2021-2024)", "SWE at Bloomberg (2024-)"];
     return (
         <React.Fragment>
-        <StyledSection style={{ marginTop: '3vh' }}>
-            <StyledWelcomeContainer>
-                <StyledWelcomeTextContainer>
-                    <StyledHi>Hello!</StyledHi>
-                    <StyledTagline>I develop Software</StyledTagline>
-                    <p style={{ marginTop: '5vh' }}><strong>I'm Daniel</strong>, a Computer Science graduate from the University of Southampton, about to return as a Software Engineer at Bloomberg!</p>
-                </StyledWelcomeTextContainer>
-                <StyledProfileImage src={`${process.env.PUBLIC_URL}/image.jpg`} alt="Daniel's profile" />
-            </StyledWelcomeContainer>
-            
-            <StyledTaglineSmall> 
-                check out my highlights
-                <p style={{ display: 'inline', fontSize: 'calc(1vw + 1.5rem)', position: 'relative', top: '0.2em' }}>↴</p> 
-            </StyledTaglineSmall>
-            <Carousel images={experience_preview_images} captions={captions}/>
-        </StyledSection>
-        <StyledAsideRight style={{marginTop:'60vh', marginLeft:'10%', marginRight:'10%', marginBottom:'10%', fontSize:'calc(1vw + 0.5rem)', border:'dashed', borderRadius:'25px', color:'#07beb8'}}>
-            <CurrentFavourites />
-        </StyledAsideRight>
+            <StyledSection style={{ marginTop: '3vh' }}>
+                <StyledWelcomeContainer>
+                    <StyledWelcomeTextContainer>
+                        <StyledHi>Hello!</StyledHi>
+                        <StyledTagline>I develop Software</StyledTagline>
+                        <p style={{ marginTop: '5vh' }}><strong>I'm Daniel</strong>, a Computer Science graduate from the University of Southampton, about to return as a Software Engineer at Bloomberg!</p>
+                    </StyledWelcomeTextContainer>
+                    <StyledProfileImage src={`${process.env.PUBLIC_URL}/image.jpg`} alt="Daniel's profile" />
+                </StyledWelcomeContainer>
+
+                <StyledTaglineSmall>
+                    check out my highlights
+                    <p style={{ display: 'inline', fontSize: 'calc(1vw + 1.5rem)', position: 'relative', top: '0.2em' }}>↴</p>
+                </StyledTaglineSmall>
+                <Carousel images={experience_preview_images} captions={captions} />
+                {isMobile && (<CurrentFavourites />)}
+            </StyledSection>
+            {!isMobile && (
+                <StyledAsideRight style={{ marginTop: '60vh', marginLeft: '10%', marginRight: '10%', marginBottom: '10%'}}>
+                    <CurrentFavourites />
+                </StyledAsideRight>
+            )}
         </React.Fragment>
     );
 }
