@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 
-// Define the main container for the carousel
+// Define the main container - this contains the CarouselSlide and the arrow buttons - it hides all overflowing slides, meaning only one slide is visible at a time
 const CarouselContainer = styled.div`
     padding-top: 5%;
     width: 100%;
     max-width: 600px;
-    overflow: hidden;
+    overflow: hidden; /* Hide the overflow of the slides - this is what creates the carousel effect */
     position: relative;
     margin: auto;
 `;
 
-// Define the slide images
+// Define the slide images container - this contains all the slides horizontally
 const CarouselSlide = styled.div`
     display: flex;
     transition: transform 0.5s ease-in-out;
-    transform: ${({ currentSlide, numSlides }) => `translateX(-${(200 / numSlides) * currentSlide}%)`}; 
+    transform: ${({ currentSlide }) => `translateX(-${100 * currentSlide}%)`}; 
     width: 100%;
 `;
 
@@ -74,21 +74,28 @@ const Dot = styled.span`
 `;
 
 const Carousel = ({ images, captions, autoScrollInterval = 9000 }) => {
+    // State to keep track of the current slide index
     const [currentSlide, setCurrentSlide] = useState(0);
-    const numSlides = images.length;
+    const numSlides = images.length; // Number of slides
 
-    const nextSlide = () => {
+    // Function to go to the next slide
+    const nextSlide = useCallback(() => {
         setCurrentSlide((currentSlide + 1) % numSlides);
-    };
+    }, [currentSlide, numSlides]);
 
+    // Function to go to the previous slide
     const previousSlide = () => {
         setCurrentSlide((currentSlide - 1 + numSlides) % numSlides);
     };
 
-    useEffect(() => {
-        const intervalId = setInterval(nextSlide, autoScrollInterval);
-        return () => clearInterval(intervalId);
-    }, [currentSlide]);
+    // we use useEffect to set up the interval for auto-scrolling
+    useEffect(() => { // set-up function for useEffect
+        const intervalId = setInterval(nextSlide, autoScrollInterval); // set interval to call nextSlide every autoScrollInterval milliseconds
+
+        return () => { // clean-up function for useEffect
+            clearInterval(intervalId)
+        }; 
+    }, [nextSlide, autoScrollInterval]); // if these values change, the effect will re-run
 
     return (
         <div>

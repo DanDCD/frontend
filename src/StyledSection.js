@@ -1,10 +1,10 @@
 import Styled from 'styled-components';
 
 
-const StyledAsideLeft = Styled.section`
+const StyledAsideRight = Styled.section`
     /* grid element settings */
     /* start row / start column / end row / end column */
-    grid-area: 1 / 1 / 1 / 2;
+    grid-area: 1 / 3 / 1 / 4;
     padding-left: 1rem;
     padding-right: 1rem;
     @media (max-width: 768px) {
@@ -38,4 +38,4 @@ const StyledSectionFull = Styled.section`
     padding: 1rem;
 `;
 
-export { StyledAsideLeft, StyledSection, StyledSectionFull };
+export { StyledAsideRight, StyledSection, StyledSectionFull };
