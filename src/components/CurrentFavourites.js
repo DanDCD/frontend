@@ -1,39 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 const CurrentProjectsStyled = styled.section`
-  font-size: calc(1vw + 0.5rem);
+/* top bottom right left */
+  padding: 1vh 1vh 1vw 1vh;
   border: dashed;
   border-radius: 25px;
   color: #07beb8;
-  /* lower opacity and make less prominent */
-    opacity: 0.5;
+  opacity: 0.5;
+  transition: opacity 0.5s ease-in-out, font-weight 0.5s ease-in-out;
+  &:hover {
+    opacity: 1;
+    font-weight: bold;
     transition: opacity 0.5s ease-in-out, font-weight 0.5s ease-in-out;
-    /* increase opacity on hover */
-    &:hover {
-        /* transition effect */
-        opacity: 1;
-        font-weight: bold;
-        transition: opacity 0.5s ease-in-out, font-weight 0.5s ease-in-out;
-    }
-  `;
+  }
+`;
 
 const ProjectsContainerStyled = styled.aside`
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 2vw;
-  height: 8vw; /* Set to a value larger than the biggest emoji size */
+  height: 20vh;
 `;
 
 const EmojiLinkStyled = styled.a`
   position: relative;
-  font-size: ${({ isHovered }) => (isHovered ? '5vw' : '2vw')};
+  font-size: ${({ isHovered }) => (isHovered ? '10vh' : '5vh')};
   transition: font-size 0.3s ease-in-out;
   cursor: pointer;
-  text-decoration: none; /* Remove default link styling */
-  color: inherit; /* Inherit color from parent to avoid blue link color */
+  text-decoration: none;
+  color: inherit;
 
   &:hover .Tooltip {
     visibility: visible;
@@ -59,18 +56,19 @@ const Tooltip = styled.span`
 `;
 
 const PreviewText = styled.p`
-  margin-top: 20px;
-  font-size: 1.5rem;
+  min-height: 6vh;
+  fontSize: 2vh;
+  text-align: center;
 `;
 
 const CurrentFavourites = () => {
   const projects = {
     koala: {
-      text: 'Wombat Engine: A 3D rendering engine made with C++ and OpenGL',
+      text: 'Wombat Engine: A 3D renderer made with C++ and OpenGL',
       link: 'https://github.com/DanDCD/WombatEngine',
     },
     book: {
-      text: 'A Python Jupyter Notebook exploring Linear Algebra',
+      text: 'A Jupyter Notebook exploring Linear Algebra with Python',
       link: 'https://github.com/DanDCD/linear_algebra',
     },
     web: {
@@ -80,47 +78,52 @@ const CurrentFavourites = () => {
   };
 
   const [hoveredProject, setHoveredProject] = React.useState('koala');
+  const [touchSupported, setTouchSupported] = React.useState(false);
+  const [tappedProject, setTappedProject] = React.useState(null);
+
+  React.useEffect(() => {
+    setTouchSupported('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const handleMouseEnter = (projectKey) => {
-    setHoveredProject(projectKey);
+    if (!touchSupported) {
+      setHoveredProject(projectKey);
+    }
+  };
+
+  const handleTouch = (projectKey, link) => {
+    if (touchSupported) {
+      if (tappedProject === projectKey) {
+        window.open(link, '_blank', 'noopener,noreferrer');
+      } else {
+        setTappedProject(projectKey);
+        setHoveredProject(projectKey);
+      }
+    }
   };
 
   return (
     <CurrentProjectsStyled>
-      <h2 style={{ fontSize: '1vw' }}>Current Side-Projects:</h2>
+      <h2 style={{ fontSize: '3vh', textAlign: 'center' }}>Current Side-Projects</h2>
       <ProjectsContainerStyled>
-        <EmojiLinkStyled
-          href={projects.koala.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          isHovered={hoveredProject === 'koala'}
-          onMouseEnter={() => handleMouseEnter('koala')}
-        >
-          🐨
-          <Tooltip className="Tooltip">Click to open repo!</Tooltip>
-        </EmojiLinkStyled>
-        <EmojiLinkStyled
-          href={projects.book.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          isHovered={hoveredProject === 'book'}
-          onMouseEnter={() => handleMouseEnter('book')}
-        >
-          📖
-          <Tooltip className="Tooltip">Click to open repo!</Tooltip>
-        </EmojiLinkStyled>
-        <EmojiLinkStyled
-          href={projects.web.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          isHovered={hoveredProject === 'web'}
-          onMouseEnter={() => handleMouseEnter('web')}
-        >
-          🌐
-          <Tooltip className="Tooltip">Click to learn more!</Tooltip>
-        </EmojiLinkStyled>
+        {Object.keys(projects).map((key) => (
+          <EmojiLinkStyled
+            key={key}
+            href={touchSupported ? '#' : projects[key].link}
+            target={touchSupported ? '' : '_blank'}
+            rel="noopener noreferrer"
+            isHovered={hoveredProject === key}
+            onMouseEnter={() => handleMouseEnter(key)}
+            onClick={() => touchSupported && handleTouch(key, projects[key].link)}
+          >
+            {key === 'koala' && '🐨'}
+            {key === 'book' && '📖'}
+            {key === 'web' && '🌐'}
+            <Tooltip className="Tooltip">Click to {touchSupported ? 'select' : 'open repo'}!</Tooltip>
+          </EmojiLinkStyled>
+        ))}
       </ProjectsContainerStyled>
-      <PreviewText>{projects[hoveredProject].text}</PreviewText>
+      <PreviewText style={{}}>{projects[hoveredProject].text}</PreviewText>
     </CurrentProjectsStyled>
   );
 };

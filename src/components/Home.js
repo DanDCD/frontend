@@ -56,11 +56,11 @@ const StyledProfileImage = styled.img`
 
 
 const Home = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [stackProjsVertically, setStackProjsVertically] = useState(window.innerWidth <= 1550);
 
     // handle window resize event for tracking isMobile state
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        const handleResize = () => setStackProjsVertically(window.innerWidth <= 1550);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -84,10 +84,11 @@ const Home = () => {
                     check out my highlights
                     <p style={{ display: 'inline', fontSize: 'calc(1vw + 1.5rem)', position: 'relative', top: '0.2em' }}>↴</p>
                 </StyledTaglineSmall>
-                <Carousel images={experience_preview_images} captions={captions} />
-                {isMobile && (<CurrentFavourites />)}
+                <Carousel images={experience_preview_images} captions={captions}/>
+                <div style={{ marginBottom: '10vh' }}></div>
+                {stackProjsVertically && (<CurrentFavourites/>)}
             </StyledSection>
-            {!isMobile && (
+            {!stackProjsVertically && (
                 <StyledAsideRight style={{ marginTop: '60vh', marginLeft: '10%', marginRight: '10%', marginBottom: '10%'}}>
                     <CurrentFavourites />
                 </StyledAsideRight>
